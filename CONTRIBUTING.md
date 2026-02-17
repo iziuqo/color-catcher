@@ -11,7 +11,7 @@ This project was built to be **accessible to everyone** – from junior develope
 ### 1. Report Bugs
 Found something broken? Let us know!
 
-- Check if the issue already exists in [GitHub Issues](https://github.com/yourusername/color-catcher/issues)
+- Check if the issue already exists in [GitHub Issues](https://github.com/iziuqo/color-catcher/issues)
 - If not, create a new issue with:
   - **Steps to reproduce** the bug
   - **Expected behavior** vs. **actual behavior**

@@ -38,7 +38,7 @@ Color Catcher is a **sleek, modern Figma plugin** that instantly extracts color 
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/color-catcher.git
+git clone https://github.com/iziuqo/color-catcher.git
 cd color-catcher
 
 # Install dependencies
@@ -206,12 +206,12 @@ This entire plugin was **vibe-coded in under an hour** as a demonstration of rap
 
 ## 📬 Contact
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/color-catcher/issues)
+- **Issues**: [GitHub Issues](https://github.com/iziuqo/color-catcher/issues)
 - **Feedback**: Use the in-plugin feedback button
-- **Twitter**: [@yourusername](https://twitter.com/yourusername)
+- **Twitter**: [@iziuqo](https://twitter.com/iziuqo)
 
 ---
 
 <p align="center">
-  Made with ☕ and ⚡ by <a href="https://github.com/yourusername">@yourusername</a>
+  Made with ☕ and ⚡ by <a href="https://github.com/iziuqo">@iziuqo</a>
 </p>
