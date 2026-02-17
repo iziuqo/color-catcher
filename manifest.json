@@ -1,0 +1,17 @@
+{
+    "name": "Color Catcher",
+    "id": "1605725747312426245",
+    "api": "1.0.0",
+    "main": "dist/code.js",
+    "ui": "ui.html",
+    "editorType": [
+        "figma"
+    ],
+    "networkAccess": {
+        "allowedDomains": [
+            "https://color-catcher-blush.vercel.app"
+        ],
+        "reasoning": "This plugin communicates with a backend to process feedback and suggestions."
+    },
+    "documentAccess": "dynamic-page"
+}
