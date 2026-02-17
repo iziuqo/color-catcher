@@ -208,7 +208,8 @@ This entire plugin was **vibe-coded in under an hour** as a demonstration of rap
 
 - **Issues**: [GitHub Issues](https://github.com/iziuqo/color-catcher/issues)
 - **Feedback**: Use the in-plugin feedback button
-- **Twitter**: [@iziuqo](https://twitter.com/iziuqo)
+- **Twitter**: [@heyizaias](https://twitter.com/heyizaias)
+- **Website**: [izaias.vercel.app](https://izaias.vercel.app)
 
 ---
 
