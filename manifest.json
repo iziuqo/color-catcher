@@ -1,7 +1,6 @@
 {
     "name": "Color Catcher",
     "id": "1605725747312426245",
-    "version": "1.2.0",
     "api": "1.0.0",
     "main": "dist/code.js",
     "ui": "ui.html",
