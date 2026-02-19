@@ -2409,31 +2409,61 @@ function rgbToHsl(r: number, g: number, b: number): string {
   const min = Math.min(r, g, b);
   let h = 0, s = 0, l = (max + min) / 2;
 
-  // Only calculate hue and saturation if the color isn't grayscale
   if (max !== min) {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-    // Calculate hue based on which channel is dominant
+    
     switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
     }
-    h /= 6;
   }
 
-  // Convert to standard HSL format (degrees, percentages)
-  const hDeg = Math.round(h * 360);
-  const sPct = Math.round(s * 100);
-  const lPct = Math.round(l * 100);
+  return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+}
 
-  return `hsl(${hDeg}, ${sPct}%, ${lPct}%)`;
+/**
+ * Converts RGB to OKLCH (perceptually uniform color space)
+ * OKLCH provides better perceptual uniformity than HSL
+ * @example rgbToOklch(1, 0, 0) => "oklch(0.63 0.22 29.23)" (red)
+ */
+function rgbToOklch(r: number, g: number, b: number): string {
+  // Convert RGB to linear RGB
+  const linearR = r <= 0.04045 ? r / 12.92 : Math.pow((r + 0.055) / 1.055, 2.4);
+  const linearG = g <= 0.04045 ? g / 12.92 : Math.pow((g + 0.055) / 1.055, 2.4);
+  const linearB = b <= 0.04045 ? b / 12.92 : Math.pow((b + 0.055) / 1.055, 2.4);
+
+  // Convert linear RGB to XYZ (D65 illuminant)
+  const x = linearR * 0.4124564 + linearG * 0.3575761 + linearB * 0.1804375;
+  const y = linearR * 0.2126729 + linearG * 0.7151522 + linearB * 0.0721750;
+  const z = linearR * 0.0193339 + linearG * 0.1191920 + linearB * 0.9503041;
+
+  // Convert XYZ to OKLab
+  const l = Math.cbrt(1.0 * x + 0.3963378 * y + 0.2158038 * z);
+  const m = Math.cbrt(0.9692562 * x - 0.2756884 * y - 0.0036327 * z);
+  const s = Math.cbrt(0.0556434 * x - 0.2360813 * y + 1.1804454 * z);
+
+  const oklabL = 0.2104543 * l + 0.7936178 * m - 0.0040720 * s;
+  const oklabA = 1.9779985 * l - 2.4285922 * m + 0.4505938 * s;
+  const oklabB = 0.0259040 * l + 0.7827718 * m - 0.8086757 * s;
+
+  // Convert OKLab to OKLCH
+  const c = Math.sqrt(oklabA * oklabA + oklabB * oklabB);
+  let h = Math.atan2(oklabB, oklabA) * (180 / Math.PI);
+  if (h < 0) h += 360;
+
+  // Format to 2 decimal places for precision
+  const L = oklabL.toFixed(2);
+  const C = c.toFixed(2);
+  const H = h.toFixed(2);
+
+  return `oklch(${L} ${C} ${H})`;
 }
 
 /**
  * Processes a color into all formats we support
- * Takes Figma's 0-1 RGB and returns HEX, RGB, HSL, CSS formats, and color name
+ * Takes Figma's 0-1 RGB and returns HEX, RGB, HSL, CSS, OKLCH formats, and color name
  */
 function processColor(r: number, g: number, b: number) {
   const hex = rgbToHex(r, g, b);
@@ -2447,6 +2477,7 @@ function processColor(r: number, g: number, b: number) {
     rgb: `${r255}, ${g255}, ${b255}`,
     css: `rgb(${r255}, ${g255}, ${b255})`,
     hsl: rgbToHsl(r, g, b),
+    oklch: rgbToOklch(r, g, b),
     name: colorName.name,
     exact: colorName.exact
   };

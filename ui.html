@@ -459,7 +459,7 @@
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        Instant Hex, RGB, HSL & CSS values
+        Instant Hex, RGB, HSL, CSS & OKLCH values
       </div>
       <div class="feature-item">
         <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -531,6 +531,15 @@
         <div class="color-row" role="button" data-target="val-css">
           <span class="color-label">CSS</span>
           <span id="val-css" class="color-value">rgb(255, 255, 255)</span>
+          <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </div>
+        <div class="color-row" role="button" data-target="val-oklch">
+          <span class="color-label">OKLCH</span>
+          <span id="val-oklch" class="color-value">oklch(1.00 0.00 0.00)</span>
           <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
@@ -609,6 +618,7 @@
       valRgb: document.getElementById('val-rgb'),
       valHsl: document.getElementById('val-hsl'),
       valCss: document.getElementById('val-css'),
+      valOklch: document.getElementById('val-oklch'),
       toast: document.getElementById('toast'),
       copyArea: document.getElementById('copy-area'),
       btnStart: document.getElementById('btn-start'),
@@ -701,6 +711,7 @@
       els.valRgb.textContent = data.rgb;
       els.valHsl.textContent = data.hsl;
       els.valCss.textContent = data.css;
+      els.valOklch.textContent = data.oklch;
     }
 
     function showContent(hasData) {
