@@ -3,7 +3,7 @@
 > **A professional Figma plugin for designers who care about color.**  
 > Built in under an hour. Vibe-coded with ❤️.
 
-[![Figma Plugin](https://img.shields.io/badge/Figma-Plugin-blueviolet?logo=figma)](https://www.figma.com/community)
+[![Figma Plugin](https://img.shields.io/badge/Figma-Plugin-blueviolet?logo=figma)](https://www.figma.com/community/plugin/1605725747312426245/color-catcher)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
 [![Version](https://img.shields.io/badge/Version-1.1.0-green)](https://github.com/iziuqo/color-catcher)
@@ -33,7 +33,7 @@ Color Catcher is a **sleek, modern Figma plugin** that instantly extracts color 
 
 ### For Designers (No Code Required)
 
-1. **Install from Figma Community** (coming soon!)
+1. **Install from Figma Community**: [color-catcher](https://www.figma.com/community/plugin/1605725747312426245/color-catcher)
 2. Open any Figma file
 3. Run the plugin: `Plugins → Color Catcher`
 4. Select a layer with a solid fill
@@ -318,13 +318,13 @@ This entire plugin was **vibe-coded in under an hour** as a demonstration of rap
 - **📅 Last Deployed**: February 18, 2026
 
 ### Plugin Distribution
-- **📦 Figma Community**: Coming soon
+- **📦 Figma Community**: ✅ [Available Now](https://www.figma.com/community/plugin/1605725747312426245/color-catcher)
 - **🔧 Development**: Ready for local testing via manifest.json
 - **🌍 Backend**: Feedback API endpoints live and functional
 
 ---
 
-## �📬 Contact
+## �� Contact
 
 - **Issues**: [GitHub Issues](https://github.com/iziuqo/color-catcher/issues)
 - **Feedback**: Use the in-plugin feedback button
