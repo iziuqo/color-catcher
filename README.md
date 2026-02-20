@@ -6,7 +6,7 @@
 [![Figma Plugin](https://img.shields.io/badge/Figma-Plugin-blueviolet?logo=figma)](https://www.figma.com/community/plugin/1605725747312426245/color-catcher)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
-[![Version](https://img.shields.io/badge/Version-1.2.0-green)](https://github.com/iziuqo/color-catcher)
+[![Version](https://img.shields.io/badge/Version-v4-green)](https://github.com/iziuqo/color-catcher)
 [![Live](https://img.shields.io/badge/Live-✅%20Deployed-brightgreen)](https://color-catcher-blush.vercel.app)
 
 ---
@@ -154,6 +154,13 @@ The biggest enhancement is the intelligent color naming system powered by the NT
 - **↕️ Drag & Drop Reordering**: Designers can reorder the format list by dragging rows
 - **💾 Persistent Preferences**: The chosen order is saved to `figma.clientStorage`
 - **↩️ One-Click Reset**: A small reset control appears when your order differs from the default
+
+---
+
+## 📚 Documentation
+
+- See `CHANGELOG.md` for the canonical release history (Figma Community versioning)
+- See `docs/README.md` for organized release notes + Figma Community copy
 
 ### Technical Improvements
 
