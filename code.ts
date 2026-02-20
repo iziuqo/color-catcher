@@ -3192,15 +3192,19 @@ figma.ui.onmessage = async (msg) => {
 figma.on("selectionchange", updateUI);
 
 let docChangeTimer: number | undefined;
-figma.on('documentchange', () => {
-  if (docChangeTimer) clearTimeout(docChangeTimer);
-  docChangeTimer = setTimeout(() => {
-    updateUI();
-  }, 80) as unknown as number;
-});
+const registerDocumentChangeHandler = () => {
+  figma.on('documentchange', () => {
+    if (docChangeTimer) clearTimeout(docChangeTimer);
+    docChangeTimer = setTimeout(() => {
+      updateUI();
+    }, 80) as unknown as number;
+  });
+};
 
 // Initialize the plugin
 (async () => {
+  await figma.loadAllPagesAsync();
+  registerDocumentChangeHandler();
   await checkOnboarding();  // Check if we should show onboarding
   updateUI();               // Show current selection (if any)
 })();
