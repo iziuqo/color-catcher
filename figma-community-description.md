@@ -1,7 +1,7 @@
 # 🎨 Color Catcher - Professional Color Utility for Figma
 
 ## Short Description
-Instantly extract color values from any layer with smart color naming. Get HEX, RGB, HSL, CSS formats + intelligent color names from 1,566 predefined colors. One-click copy, beautiful UI, lightning fast.
+Instantly extract color values from any layer with smart color naming. Get HEX, RGB, HSL, CSS, and OKLCH formats + intelligent color names from 1,566 predefined colors. One-click copy, beautiful UI, lightning fast.
 
 ## Long Description
 
@@ -18,9 +18,14 @@ Color Catcher is a professional Figma plugin that transforms how you work with c
 
 **🎯 Instant Color Extraction**
 - Select any layer with solid fill and get complete color information
-- Supports HEX, RGB, HSL, and CSS color formats
+- Supports HEX, RGB, HSL, CSS, and OKLCH color formats
 - Real-time updates as you select different layers
 - Works with shapes, text, components, and any layer with solid fills
+
+**↕️ Customizable Format Order (NEW!)**
+- Drag and drop to reorder the format list exactly the way you prefer
+- Your order persists across sessions (saved automatically)
+- A small reset control appears when you customize the order
 
 **📋 One-Click Copy**
 - Click any color format to copy instantly to clipboard
@@ -48,6 +53,10 @@ Color Catcher is a professional Figma plugin that transforms how you work with c
 3. **Smart Naming**: Get intelligent color names like "Navy Blue" or "Coral Red"
 4. **Copy Any Format**: Click HEX, RGB, HSL, CSS, or the color name to copy
 5. **Stay in Flow**: Continue designing without leaving Figma
+
+### 🌈 OKLCH (Modern Color Space)
+
+OKLCH is a perceptually uniform color space that makes color relationships more consistent than HSL. If you're building design systems or working with advanced color workflows, OKLCH is a future-ready format that pairs well with modern CSS.
 
 ### 🛠️ Technical Excellence
 
@@ -80,13 +89,13 @@ Color Catcher is a professional Figma plugin that transforms how you work with c
 - Learn color names and properties
 - Speed up your design workflow
 
-### 📦 What's New in v1.1+
+### 📦 What's New in v1.2+
 
+- 🌈 **OKLCH Support**: Adds `oklch(L C H)` output
+- ↕️ **Drag to Reorder Formats**: Customize the format list by dragging
+- � **Persistent Preferences**: Format order is saved across sessions
+- ↩️ **Reset Order**: Small reset control appears after customization
 - ✨ **Smart Color Naming**: 1,566 intelligent color names
-- 🎨 **Enhanced UI**: Better visual feedback and animations
-- 📱 **Responsive Design**: Optimized for all window sizes
-- ⚡ **Performance**: Faster color matching algorithms
-- 🔧 **Improved UX**: Better error handling and user feedback
 
 ### 💬 Feedback & Support
 Built with love for the design community. Send feedback directly through the plugin or report issues on GitHub. We're constantly improving based on your suggestions!

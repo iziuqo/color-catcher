@@ -1,6 +1,6 @@
 # 🎨 Color Catcher - Professional Color Utility
 
-Instantly extract color values from any layer with smart color naming. Get HEX, RGB, HSL, CSS formats + intelligent color names from 1,566 predefined colors. One-click copy, beautiful UI, lightning fast.
+Instantly extract color values from any layer with smart color naming. Get HEX, RGB, HSL, CSS, and OKLCH formats + intelligent color names from 1,566 predefined colors. One-click copy, beautiful UI, lightning fast.
 
 ## ✨ Key Features
 
@@ -11,8 +11,13 @@ Instantly extract color values from any layer with smart color naming. Get HEX, 
 
 🎯 **Instant Color Extraction**
 - Select any layer, get complete color info
-- HEX, RGB, HSL, CSS formats
+- HEX, RGB, HSL, CSS, OKLCH formats
 - Real-time updates as you select
+
+↕️ **Reorder Formats (NEW!)**
+- Drag and drop to reorder the list
+- Order persists across sessions
+- Tiny reset control after customization
 
 📋 **One-Click Copy**
 - Click any format to copy instantly
@@ -36,10 +41,9 @@ Instantly extract color values from any layer with smart color naming. Get HEX, 
 - Personal color exploration
 - Style guide documentation
 
-## 📦 What's New v1.1+
-- ✨ Smart Color Naming with 1,566 colors
-- 🎨 Enhanced UI with better animations
-- 📱 Responsive design optimization
-- ⚡ Faster color matching algorithms
+## 📦 What's New v1.2+
+- 🌈 OKLCH format support
+- ↕️ Drag to reorder formats (persistent)
+- ↩️ Reset order control
 
 Transform how you work with colors in Figma!
