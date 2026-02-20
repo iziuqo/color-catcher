@@ -1745,6 +1745,90 @@ const htmlContent = `
             /* animation: slideUp 0.4s ease-out 0.1s both; */
         }
 
+        .contrast-card {
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--card);
+        }
+
+        .contrast-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .contrast-subtle {
+            font-size: 11px;
+            color: var(--muted-foreground);
+            line-height: 1.35;
+        }
+
+        .contrast-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .contrast-pill {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--muted);
+            color: var(--foreground);
+            white-space: nowrap;
+        }
+
+        .contrast-pill.fail {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .contrast-pill.pass {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+            color: #166534;
+        }
+
+        .contrast-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--foreground);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--muted);
+        }
+
+        .select {
+            height: 34px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--foreground);
+            font-size: 12px;
+            padding: 0 10px;
+        }
+
         .color-row {
             display: flex;
             align-items: center;
@@ -2081,48 +2165,10 @@ const htmlContent = `
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.36 2.64"></path><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.36-2.64"></path><path d="M21 3v6h-6"></path><path d="M3 21v-6h6"></path></svg>
             </button>
             <button id="btn-feedback-open" class="btn-icon" data-tooltip="Feedback" aria-label="Feedback">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a4 4 0 0 1-4 4H7l-4 4V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path></svg>
             </button>
         </div>
 
-        <div id="content" class="hidden">
-            <div class="header-center">
-                <div id="swatch" class="color-preview-large"></div>
-                <div id="primary-hex" class="primary-hex">#000000</div>
-                <div id="color-name" class="color-name" role="button" title="Click to copy"></div>
-            </div>
-
-            <div class="color-grid">
-                <!-- Color Rows ... -->
-                <div class="color-row" role="button" data-format="hex" data-target="val-hex" draggable="true">
-                    <span class="color-label">HEX</span>
-                    <span id="val-hex" class="color-value">#000000</span>
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </div>
-                <div class="color-row" role="button" data-format="rgb" data-target="val-rgb" draggable="true">
-                    <span class="color-label">RGB</span>
-                    <span id="val-rgb" class="color-value">255, 255, 255</span>
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </div>
-                <div class="color-row" role="button" data-format="hsl" data-target="val-hsl" draggable="true">
-                    <span class="color-label">HSL</span>
-                    <span id="val-hsl" class="color-value">0, 0%, 100%</span>
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </div>
-                <div class="color-row" role="button" data-format="css" data-target="val-css" draggable="true">
-                    <span class="color-label">CSS</span>
-                    <span id="val-css" class="color-value">rgb(255, 255, 255)</span>
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </div>
-                <div class="color-row" role="button" data-format="oklch" data-target="val-oklch" draggable="true">
-                    <span class="color-label">OKLCH</span>
-                    <span id="val-oklch" class="color-value">oklch(1.00 0.00 0.00)</span>
-                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                </div>
-            </div>
-        </div>
-
-        <!-- Empty State -->
         <div id="empty-state" class="empty-state">
             <svg class="empty-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path opacity="0.1" d="M100 180C144.183 180 180 144.183 180 100C180 55.8172 144.183 20 100 20C55.8172 20 20 55.8172 20 100C20 144.183 55.8172 180 100 180Z" fill="currentColor"/>
@@ -2135,6 +2181,65 @@ const htmlContent = `
             </svg>
             <div class="empty-title">No Color Detected</div>
             <div class="empty-desc">Select any shape with a solid fill to instantly capture its palette.</div>
+        </div>
+
+        <div id="content" class="content hidden">
+            <div id="swatch" class="color-preview-large"></div>
+            <div id="primary-hex" class="primary-hex">#FFFFFF</div>
+            <div id="color-name" class="color-name" data-copy-value="">White</div>
+
+            <div class="color-grid">
+                <div class="color-row" data-format="hex" draggable="true" data-target="val-hex">
+                    <div class="color-label">HEX</div>
+                    <div id="val-hex" class="color-value">#FFFFFF</div>
+                    <div class="copy-icon">⧉</div>
+                </div>
+                <div class="color-row" data-format="rgb" draggable="true" data-target="val-rgb">
+                    <div class="color-label">RGB</div>
+                    <div id="val-rgb" class="color-value">255, 255, 255</div>
+                    <div class="copy-icon">⧉</div>
+                </div>
+                <div class="color-row" data-format="hsl" draggable="true" data-target="val-hsl">
+                    <div class="color-label">HSL</div>
+                    <div id="val-hsl" class="color-value">hsl(0, 0%, 100%)</div>
+                    <div class="copy-icon">⧉</div>
+                </div>
+                <div class="color-row" data-format="css" draggable="true" data-target="val-css">
+                    <div class="color-label">CSS</div>
+                    <div id="val-css" class="color-value">rgb(255, 255, 255)</div>
+                    <div class="copy-icon">⧉</div>
+                </div>
+                <div class="color-row" data-format="oklch" draggable="true" data-target="val-oklch">
+                    <div class="color-label">OKLCH</div>
+                    <div id="val-oklch" class="color-value">oklch(1 0 0)</div>
+                    <div class="copy-icon">⧉</div>
+                </div>
+            </div>
+
+            <div id="contrast-card" class="contrast-card">
+                <div class="contrast-title">Contrast</div>
+                <div id="contrast-source" class="contrast-subtle">Background: auto</div>
+                <div class="contrast-row">
+                    <div id="contrast-ratio" class="contrast-subtle">Ratio: not available</div>
+                    <div id="contrast-grade" class="contrast-pill">N A</div>
+                </div>
+                <div class="contrast-row">
+                    <div class="contrast-subtle">Target</div>
+                    <select id="contrast-target" class="select">
+                        <option value="A">A</option>
+                        <option value="AA" selected>AA</option>
+                        <option value="AAA">AAA</option>
+                    </select>
+                </div>
+                <div class="contrast-actions">
+                    <button id="btn-set-bg" class="btn-secondary">Set background</button>
+                    <button id="btn-clear-bg" class="btn-secondary">Clear</button>
+                </div>
+                <div class="contrast-actions">
+                    <button id="btn-fix-contrast" class="btn-primary">Fix to target</button>
+                    <button id="btn-undo-contrast" class="btn-secondary hidden">Undo</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -2193,7 +2298,16 @@ const htmlContent = `
             feedbackForm: document.getElementById('feedback-form'),
             feedbackMsg: document.getElementById('feedback-msg'),
             feedbackEmail: document.getElementById('feedback-email'),
-            btnSubmit: document.getElementById('btn-submit')
+            btnSubmit: document.getElementById('btn-submit'),
+            contrastCard: document.getElementById('contrast-card'),
+            contrastSource: document.getElementById('contrast-source'),
+            contrastRatio: document.getElementById('contrast-ratio'),
+            contrastGrade: document.getElementById('contrast-grade'),
+            contrastTarget: document.getElementById('contrast-target'),
+            btnSetBg: document.getElementById('btn-set-bg'),
+            btnClearBg: document.getElementById('btn-clear-bg'),
+            btnFixContrast: document.getElementById('btn-fix-contrast'),
+            btnUndoContrast: document.getElementById('btn-undo-contrast')
         };
 
         const DEFAULT_FORMAT_ORDER = ['hex', 'rgb', 'hsl', 'css', 'oklch'];
@@ -2256,6 +2370,27 @@ const htmlContent = `
             persistOrder();
         };
 
+        els.contrastTarget.onchange = () => {
+            const level = els.contrastTarget.value;
+            parent.postMessage({ pluginMessage: { type: 'set-contrast-target', level } }, '*');
+        };
+
+        els.btnSetBg.onclick = () => {
+            parent.postMessage({ pluginMessage: { type: 'set-background-reference' } }, '*');
+        };
+
+        els.btnClearBg.onclick = () => {
+            parent.postMessage({ pluginMessage: { type: 'clear-background-reference' } }, '*');
+        };
+
+        els.btnFixContrast.onclick = () => {
+            parent.postMessage({ pluginMessage: { type: 'fix-contrast' } }, '*');
+        };
+
+        els.btnUndoContrast.onclick = () => {
+            parent.postMessage({ pluginMessage: { type: 'undo-contrast' } }, '*');
+        };
+
         // --- View Switching ---
         els.btnFeedbackOpen.onclick = () => {
             els.mainView.classList.add('hidden');
@@ -2313,7 +2448,7 @@ const htmlContent = `
 
         // --- Messaging Logic ---
         window.onmessage = (event) => {
-            const { type, data, order } = event.data.pluginMessage;
+            const { type, data, order, level } = event.data.pluginMessage;
             
             if (type === 'show-onboarding') {
                 els.onboarding.classList.remove('hidden');
@@ -2326,6 +2461,10 @@ const htmlContent = `
                 } else {
                     showContent(false);
                 }
+            }
+
+            if (type === 'set-contrast-target') {
+                if (level && els.contrastTarget) els.contrastTarget.value = level;
             }
 
             if (type === 'set-format-order') {
@@ -2345,6 +2484,7 @@ const htmlContent = `
 
         // Ask plugin for persisted order
         parent.postMessage({ pluginMessage: { type: 'get-format-order' } }, '*');
+        parent.postMessage({ pluginMessage: { type: 'get-contrast-target' } }, '*');
 
         function renderData(data) {
             els.swatch.style.backgroundColor = data.hex;
@@ -2360,6 +2500,24 @@ const htmlContent = `
             els.valHsl.textContent = data.hsl;
             els.valCss.textContent = data.css;
             els.valOklch.textContent = data.oklch;
+
+            if (data.contrast) {
+                els.contrastSource.textContent = data.contrast.sourceLabel;
+                els.contrastRatio.textContent = data.contrast.ratioText;
+
+                els.contrastGrade.textContent = data.contrast.gradeText;
+                els.contrastGrade.classList.toggle('fail', data.contrast.pass === false);
+                els.contrastGrade.classList.toggle('pass', data.contrast.pass === true);
+
+                els.btnUndoContrast.classList.toggle('hidden', !data.contrast.canUndo);
+            } else {
+                els.contrastSource.textContent = 'Background: auto';
+                els.contrastRatio.textContent = 'Ratio: not available';
+                els.contrastGrade.textContent = 'N A';
+                els.contrastGrade.classList.remove('fail');
+                els.contrastGrade.classList.remove('pass');
+                els.btnUndoContrast.classList.add('hidden');
+            }
         }
 
         function showContent(hasData) {
@@ -2470,6 +2628,198 @@ const htmlContent = `
 `;
 
 figma.showUI(htmlContent, { width: 300, height: 460 });
+
+type Rgb01 = { r: number; g: number; b: number };
+
+function rgb01ToLinear(c: number) {
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
+function relativeLuminance(rgb: Rgb01) {
+  const r = rgb01ToLinear(rgb.r);
+  const g = rgb01ToLinear(rgb.g);
+  const b = rgb01ToLinear(rgb.b);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+function contrastRatio(fg: Rgb01, bg: Rgb01) {
+  const L1 = relativeLuminance(fg);
+  const L2 = relativeLuminance(bg);
+  const lighter = Math.max(L1, L2);
+  const darker = Math.min(L1, L2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function isLargeText(node: SceneNode) {
+  if (node.type !== 'TEXT') return false;
+  const text = node as TextNode;
+  const size = typeof text.fontSize === 'number' ? text.fontSize : null;
+  if (!size) return false;
+  const weight = typeof text.fontWeight === 'number' ? text.fontWeight : 400;
+  const isBold = weight >= 700;
+  return (isBold && size >= 14) || size >= 18;
+}
+
+function requiredRatioFor(level: 'A' | 'AA' | 'AAA', kind: 'text-normal' | 'text-large' | 'non-text') {
+  if (kind === 'non-text') {
+    if (level === 'A') return 3;
+    if (level === 'AA') return 3;
+    return 3;
+  }
+  if (kind === 'text-large') {
+    if (level === 'A') return 3;
+    if (level === 'AA') return 3;
+    return 4.5;
+  }
+  if (level === 'A') return 3;
+  if (level === 'AA') return 4.5;
+  return 7;
+}
+
+function gradeFor(ratio: number, kind: 'text-normal' | 'text-large' | 'non-text') {
+  const passA = ratio >= requiredRatioFor('A', kind);
+  const passAA = ratio >= requiredRatioFor('AA', kind);
+  const passAAA = kind === 'non-text' ? false : ratio >= requiredRatioFor('AAA', kind);
+  if (passAAA) return 'AAA';
+  if (passAA) return 'AA';
+  if (passA) return 'A';
+  return 'Fail';
+}
+
+function clamp01(n: number) {
+  return Math.max(0, Math.min(1, n));
+}
+
+function mix(a: Rgb01, b: Rgb01, t: number): Rgb01 {
+  const tt = clamp01(t);
+  return {
+    r: a.r + (b.r - a.r) * tt,
+    g: a.g + (b.g - a.g) * tt,
+    b: a.b + (b.b - a.b) * tt,
+  };
+}
+
+function hexFromRgb01(rgb: Rgb01) {
+  return rgbToHex(rgb.r, rgb.g, rgb.b);
+}
+
+async function getContrastTarget(): Promise<'A' | 'AA' | 'AAA'> {
+  const stored = await figma.clientStorage.getAsync('contrastTarget');
+  if (stored === 'A' || stored === 'AA' || stored === 'AAA') return stored;
+  return 'AA';
+}
+
+async function setContrastTarget(level: 'A' | 'AA' | 'AAA') {
+  await figma.clientStorage.setAsync('contrastTarget', level);
+  figma.ui.postMessage({ type: 'set-contrast-target', level });
+}
+
+async function getBackgroundReferenceId(): Promise<string | null> {
+  const stored = await figma.clientStorage.getAsync('contrastBackgroundRef');
+  return typeof stored === 'string' && stored ? stored : null;
+}
+
+async function setBackgroundReferenceId(id: string | null) {
+  if (id) await figma.clientStorage.setAsync('contrastBackgroundRef', id);
+  else await figma.clientStorage.setAsync('contrastBackgroundRef', null);
+}
+
+function findSolidPaintRGB01(node: SceneNode): Rgb01 | null {
+  if (!('fills' in node)) return null;
+  const fills = node.fills as Paint[];
+  const solid = fills.find((p) => p.type === 'SOLID' && p.visible !== false) as SolidPaint;
+  if (!solid) return null;
+  return { r: solid.color.r, g: solid.color.g, b: solid.color.b };
+}
+
+function resolveAutoBackgroundRgb(node: SceneNode): { rgb: Rgb01; label: string } {
+  let current: BaseNode | null = node.parent;
+  while (current) {
+    if ((current as SceneNode).type && (current as SceneNode).visible !== false) {
+      const scene = current as SceneNode;
+      const rgb = findSolidPaintRGB01(scene);
+      if (rgb) return { rgb, label: `Background: parent ${scene.type.toLowerCase()}` };
+    }
+    current = current.parent;
+  }
+  return { rgb: { r: 1, g: 1, b: 1 }, label: 'Background: fallback white' };
+}
+
+async function resolveBackgroundRgb(node: SceneNode): Promise<{ rgb: Rgb01; label: string } | null> {
+  const refId = await getBackgroundReferenceId();
+  if (refId) {
+    const ref = figma.getNodeById(refId);
+    if (ref && (ref as SceneNode).type) {
+      const rgb = findSolidPaintRGB01(ref as SceneNode);
+      if (rgb) return { rgb, label: 'Background: reference layer' };
+      return { rgb: { r: 1, g: 1, b: 1 }, label: 'Background: reference layer not solid, using white' };
+    }
+    await setBackgroundReferenceId(null);
+  }
+  return resolveAutoBackgroundRgb(node);
+}
+
+const lastContrastUndo = new Map<string, Paint[]>();
+
+function buildContrastPayload(params: {
+  node: SceneNode;
+  fg: Rgb01;
+  bg: Rgb01;
+  bgLabel: string;
+  target: 'A' | 'AA' | 'AAA';
+}) {
+  const { node, fg, bg, bgLabel, target } = params;
+  const kind: 'text-normal' | 'text-large' | 'non-text' = node.type === 'TEXT' ? (isLargeText(node) ? 'text-large' : 'text-normal') : 'non-text';
+  const ratio = contrastRatio(fg, bg);
+  const ratioText = `Ratio: ${ratio.toFixed(2)}:1`;
+  const currentGrade = gradeFor(ratio, kind);
+  const required = requiredRatioFor(target, kind);
+  const pass = ratio >= required;
+  const canUndo = lastContrastUndo.has(node.id);
+  return {
+    sourceLabel: bgLabel,
+    ratio,
+    ratioText,
+    kind,
+    gradeText: pass ? `${target}` : 'Fail',
+    pass,
+    required,
+    fgHex: hexFromRgb01(fg),
+    bgHex: hexFromRgb01(bg),
+    canUndo,
+    target,
+    currentGrade,
+  };
+}
+
+function computeFixedForeground(fg: Rgb01, bg: Rgb01, required: number) {
+  const black = { r: 0, g: 0, b: 0 };
+  const white = { r: 1, g: 1, b: 1 };
+
+  const ratioWithBlack = contrastRatio(black, bg);
+  const ratioWithWhite = contrastRatio(white, bg);
+
+  let target = ratioWithBlack >= ratioWithWhite ? black : white;
+  if (Math.max(ratioWithBlack, ratioWithWhite) < required) {
+    target = ratioWithBlack > ratioWithWhite ? black : white;
+  }
+
+  let lo = 0;
+  let hi = 1;
+  let best = fg;
+  for (let i = 0; i < 22; i++) {
+    const mid = (lo + hi) / 2;
+    const candidate = mix(fg, target, mid);
+    const r = contrastRatio(candidate, bg);
+    if (r >= required) {
+      best = candidate;
+      hi = mid;
+    } else {
+      lo = mid;
+    }
+  }
+  return best;
+}
 
 /**
  * Converts Figma's 0-1 RGB values to standard HEX format
@@ -2700,16 +3050,58 @@ async function checkOnboarding() {
  * Updates the UI with color data from the current selection
  * Called whenever the user selects/deselects layers
  */
-function updateUI() {
+function normalizeSolidFills(node: SceneNode): Paint[] | null {
+  if (!("fills" in node)) return null;
+  const fills = (node as unknown as { fills: Paint[] | PluginAPI['mixed'] }).fills;
+  if (fills === figma.mixed) return null;
+  return fills as Paint[];
+}
+
+function setFirstVisibleSolidFillColor(node: SceneNode, rgb: Rgb01): boolean {
+  const fills = normalizeSolidFills(node);
+  if (!fills) return false;
+  const next = fills.map((p) => {
+    if (p.type !== 'SOLID' || p.visible === false) return p;
+    const solid = p as SolidPaint;
+    return {
+      ...solid,
+      color: { r: clamp01(rgb.r), g: clamp01(rgb.g), b: clamp01(rgb.b) },
+    };
+  });
+
+  const hadSolid = next.some((p) => p.type === 'SOLID' && (p as SolidPaint).visible !== false);
+  if (!hadSolid) return false;
+  (node as unknown as { fills: Paint[] }).fills = next;
+  return true;
+}
+
+async function updateUI() {
   const selection = figma.currentPage.selection;
-  if (selection.length > 0) {
-    // Extract color from the first selected layer
-    const colorData = findSolidFill(selection[0]);
-    figma.ui.postMessage({ type: "update-color", data: colorData });
-  } else {
-    // No selection - show empty state
+  if (selection.length === 0) {
     figma.ui.postMessage({ type: "update-color", data: null });
+    return;
   }
+
+  const node = selection[0];
+  const colorData = findSolidFill(node);
+  if (!colorData) {
+    figma.ui.postMessage({ type: "update-color", data: null });
+    return;
+  }
+
+  const fg = findSolidPaintRGB01(node);
+  const bgResolved = await resolveBackgroundRgb(node);
+  const target = await getContrastTarget();
+
+  const contrast = fg && bgResolved ? buildContrastPayload({
+    node,
+    fg,
+    bg: bgResolved.rgb,
+    bgLabel: bgResolved.label,
+    target,
+  }) : null;
+
+  figma.ui.postMessage({ type: "update-color", data: { ...colorData, contrast } });
 }
 
 // Listen for messages from the UI (like "onboarding complete")
@@ -2726,10 +3118,86 @@ figma.ui.onmessage = async (msg) => {
   if (msg.type === "save-format-order") {
     await figma.clientStorage.setAsync("formatOrder", msg.order);
   }
+
+  if (msg.type === 'get-contrast-target') {
+    const level = await getContrastTarget();
+    figma.ui.postMessage({ type: 'set-contrast-target', level });
+  }
+
+  if (msg.type === 'set-contrast-target') {
+    const level = msg.level;
+    if (level === 'A' || level === 'AA' || level === 'AAA') {
+      await setContrastTarget(level);
+      await updateUI();
+    }
+  }
+
+  if (msg.type === 'set-background-reference') {
+    const selection = figma.currentPage.selection;
+    if (selection.length === 1) {
+      await setBackgroundReferenceId(selection[0].id);
+      await updateUI();
+    }
+  }
+
+  if (msg.type === 'clear-background-reference') {
+    await setBackgroundReferenceId(null);
+    await updateUI();
+  }
+
+  if (msg.type === 'fix-contrast') {
+    const selection = figma.currentPage.selection;
+    if (selection.length !== 1) return;
+    const node = selection[0];
+    const fg = findSolidPaintRGB01(node);
+    const bgResolved = await resolveBackgroundRgb(node);
+    if (!fg || !bgResolved) return;
+
+    const target = await getContrastTarget();
+    const kind: 'text-normal' | 'text-large' | 'non-text' = node.type === 'TEXT' ? (isLargeText(node) ? 'text-large' : 'text-normal') : 'non-text';
+    const required = requiredRatioFor(target, kind);
+    const ratio = contrastRatio(fg, bgResolved.rgb);
+    if (ratio >= required) {
+      await updateUI();
+      return;
+    }
+
+    const existingFills = normalizeSolidFills(node);
+    if (!existingFills) return;
+    lastContrastUndo.set(node.id, existingFills);
+
+    const fixed = computeFixedForeground(fg, bgResolved.rgb, required);
+    const ok = setFirstVisibleSolidFillColor(node, fixed);
+    if (!ok) {
+      lastContrastUndo.delete(node.id);
+    }
+    await updateUI();
+  }
+
+  if (msg.type === 'undo-contrast') {
+    const selection = figma.currentPage.selection;
+    if (selection.length !== 1) return;
+    const node = selection[0];
+    const prev = lastContrastUndo.get(node.id);
+    if (!prev) return;
+    if ("fills" in node) {
+      (node as unknown as { fills: Paint[] }).fills = prev;
+    }
+    lastContrastUndo.delete(node.id);
+    await updateUI();
+  }
 };
 
 // Listen for selection changes and update UI in real-time
 figma.on("selectionchange", updateUI);
+
+let docChangeTimer: number | undefined;
+figma.on('documentchange', () => {
+  if (docChangeTimer) clearTimeout(docChangeTimer);
+  docChangeTimer = setTimeout(() => {
+    updateUI();
+  }, 80) as unknown as number;
+});
 
 // Initialize the plugin
 (async () => {
