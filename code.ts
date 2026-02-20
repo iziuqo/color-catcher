@@ -1637,6 +1637,53 @@ const htmlContent = `
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .btn-icon[data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: rgba(24, 24, 27, 0.92);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 6px 8px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-2px);
+            pointer-events: none;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            z-index: 200;
+        }
+
+        .btn-icon[data-tooltip]::before {
+            content: "";
+            position: absolute;
+            top: calc(100% + 3px);
+            right: 12px;
+            width: 8px;
+            height: 8px;
+            background: rgba(24, 24, 27, 0.92);
+            transform: rotate(45deg);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s ease;
+            z-index: 199;
+        }
+
+        .btn-icon[data-tooltip]:hover::after,
+        .btn-icon[data-tooltip]:focus-visible::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-icon[data-tooltip]:hover::before,
+        .btn-icon[data-tooltip]:focus-visible::before {
+            opacity: 1;
         }
 
         .btn-icon:hover {
@@ -2030,11 +2077,11 @@ const htmlContent = `
     <!-- Main View (Colors) -->
     <div id="main-view">
         <div class="header" style="justify-content: flex-end; margin-bottom: 0;">
-             <button id="btn-reset-order" class="btn-icon hidden" title="Reset format order" aria-label="Reset format order">
+             <button id="btn-reset-order" class="btn-icon hidden" data-tooltip="Reset list" aria-label="Reset list">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.36 2.64"></path><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.36-2.64"></path><path d="M21 3v6h-6"></path><path d="M3 21v-6h6"></path></svg>
             </button>
-            <button id="btn-feedback-open" class="btn-icon" title="Send Feedback">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <button id="btn-feedback-open" class="btn-icon" data-tooltip="Feedback" aria-label="Feedback">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             </button>
         </div>
 
