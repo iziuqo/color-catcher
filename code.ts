@@ -2012,7 +2012,7 @@ const htmlContent = `
         <div class="feature-list">
             <div class="feature-item">
                 <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Instant Hex, RGB, HSL & CSS values
+                Instant Hex, RGB, HSL, CSS & OKLCH values
             </div>
             <div class="feature-item">
                 <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -2030,7 +2030,10 @@ const htmlContent = `
     <!-- Main View (Colors) -->
     <div id="main-view">
         <div class="header" style="justify-content: flex-end; margin-bottom: 0;">
-             <button id="btn-feedback-open" class="btn-icon" title="Send Feedback">
+             <button id="btn-reset-order" class="btn-icon hidden" title="Reset format order" aria-label="Reset format order">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9 9 0 0 1 6.36 2.64"></path><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-6.36-2.64"></path><path d="M21 3v6h-6"></path><path d="M3 21v-6h6"></path></svg>
+            </button>
+            <button id="btn-feedback-open" class="btn-icon" title="Send Feedback">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
             </button>
         </div>
@@ -2044,24 +2047,29 @@ const htmlContent = `
 
             <div class="color-grid">
                 <!-- Color Rows ... -->
-                <div class="color-row" role="button" data-target="val-hex">
+                <div class="color-row" role="button" data-format="hex" data-target="val-hex" draggable="true">
                     <span class="color-label">HEX</span>
                     <span id="val-hex" class="color-value">#000000</span>
                     <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </div>
-                <div class="color-row" role="button" data-target="val-rgb">
+                <div class="color-row" role="button" data-format="rgb" data-target="val-rgb" draggable="true">
                     <span class="color-label">RGB</span>
                     <span id="val-rgb" class="color-value">255, 255, 255</span>
                     <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </div>
-                <div class="color-row" role="button" data-target="val-hsl">
+                <div class="color-row" role="button" data-format="hsl" data-target="val-hsl" draggable="true">
                     <span class="color-label">HSL</span>
                     <span id="val-hsl" class="color-value">0, 0%, 100%</span>
                     <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </div>
-                <div class="color-row" role="button" data-target="val-css">
+                <div class="color-row" role="button" data-format="css" data-target="val-css" draggable="true">
                     <span class="color-label">CSS</span>
                     <span id="val-css" class="color-value">rgb(255, 255, 255)</span>
+                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </div>
+                <div class="color-row" role="button" data-format="oklch" data-target="val-oklch" draggable="true">
+                    <span class="color-label">OKLCH</span>
+                    <span id="val-oklch" class="color-value">oklch(1.00 0.00 0.00)</span>
                     <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </div>
             </div>
@@ -2128,15 +2136,77 @@ const htmlContent = `
             valRgb: document.getElementById('val-rgb'),
             valHsl: document.getElementById('val-hsl'),
             valCss: document.getElementById('val-css'),
+            valOklch: document.getElementById('val-oklch'),
             toast: document.getElementById('toast'),
             copyArea: document.getElementById('copy-area'),
             btnStart: document.getElementById('btn-start'),
+            btnResetOrder: document.getElementById('btn-reset-order'),
             btnFeedbackOpen: document.getElementById('btn-feedback-open'),
             btnFeedbackClose: document.getElementById('btn-feedback-close'),
             feedbackForm: document.getElementById('feedback-form'),
             feedbackMsg: document.getElementById('feedback-msg'),
             feedbackEmail: document.getElementById('feedback-email'),
             btnSubmit: document.getElementById('btn-submit')
+        };
+
+        const DEFAULT_FORMAT_ORDER = ['hex', 'rgb', 'hsl', 'css', 'oklch'];
+        let currentFormatOrder = [...DEFAULT_FORMAT_ORDER];
+
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        function getGrid() {
+            return document.querySelector('.color-grid');
+        }
+
+        function getRows() {
+            return Array.from(document.querySelectorAll('.color-grid .color-row'));
+        }
+
+        function getOrderFromDom() {
+            return getRows().map(r => r.getAttribute('data-format')).filter(Boolean);
+        }
+
+        function updateResetVisibility() {
+            const order = getOrderFromDom();
+            const shouldShow = !arraysEqual(order, DEFAULT_FORMAT_ORDER);
+            els.btnResetOrder.classList.toggle('hidden', !shouldShow);
+        }
+
+        function applyOrder(order) {
+            const grid = getGrid();
+            if (!grid) return;
+
+            const rowsByFormat = new Map();
+            for (const row of getRows()) {
+                const fmt = row.getAttribute('data-format');
+                if (fmt) rowsByFormat.set(fmt, row);
+            }
+
+            for (const fmt of order) {
+                const row = rowsByFormat.get(fmt);
+                if (row) grid.appendChild(row);
+            }
+
+            currentFormatOrder = getOrderFromDom();
+            updateResetVisibility();
+        }
+
+        function persistOrder() {
+            const order = getOrderFromDom();
+            currentFormatOrder = order;
+            parent.postMessage({ pluginMessage: { type: 'save-format-order', order } }, '*');
+            updateResetVisibility();
+        }
+
+        els.btnResetOrder.onclick = () => {
+            applyOrder(DEFAULT_FORMAT_ORDER);
+            persistOrder();
         };
 
         // --- View Switching ---
@@ -2196,7 +2266,7 @@ const htmlContent = `
 
         // --- Messaging Logic ---
         window.onmessage = (event) => {
-            const { type, data } = event.data.pluginMessage;
+            const { type, data, order } = event.data.pluginMessage;
             
             if (type === 'show-onboarding') {
                 els.onboarding.classList.remove('hidden');
@@ -2210,7 +2280,24 @@ const htmlContent = `
                     showContent(false);
                 }
             }
+
+            if (type === 'set-format-order') {
+                const next = Array.isArray(order) ? order : null;
+                if (next && next.length) {
+                    // Validate: keep only known formats, then append missing defaults
+                    const cleaned = next.filter(f => DEFAULT_FORMAT_ORDER.includes(f));
+                    for (const f of DEFAULT_FORMAT_ORDER) {
+                        if (!cleaned.includes(f)) cleaned.push(f);
+                    }
+                    applyOrder(cleaned);
+                } else {
+                    applyOrder(DEFAULT_FORMAT_ORDER);
+                }
+            }
         };
+
+        // Ask plugin for persisted order
+        parent.postMessage({ pluginMessage: { type: 'get-format-order' } }, '*');
 
         function renderData(data) {
             els.swatch.style.backgroundColor = data.hex;
@@ -2225,6 +2312,7 @@ const htmlContent = `
             els.valRgb.textContent = data.rgb;
             els.valHsl.textContent = data.hsl;
             els.valCss.textContent = data.css;
+            els.valOklch.textContent = data.oklch;
         }
 
         function showContent(hasData) {
@@ -2238,7 +2326,46 @@ const htmlContent = `
         }
 
         // --- Copy Logic ---
+        let draggingRow = null;
         document.querySelectorAll('.color-row').forEach(row => {
+            row.addEventListener('dragstart', (e) => {
+                draggingRow = row;
+                try { e.dataTransfer.setData('text/plain', row.getAttribute('data-format') || ''); } catch (_) {}
+                e.dataTransfer.effectAllowed = 'move';
+                row.style.opacity = '0.6';
+            });
+
+            row.addEventListener('dragend', () => {
+                row.style.opacity = '';
+                draggingRow = null;
+            });
+
+            row.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            });
+
+            row.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggingRow || draggingRow === row) return;
+
+                const grid = getGrid();
+                if (!grid) return;
+
+                const all = getRows();
+                const fromIndex = all.indexOf(draggingRow);
+                const toIndex = all.indexOf(row);
+                if (fromIndex < 0 || toIndex < 0) return;
+
+                if (fromIndex < toIndex) {
+                    grid.insertBefore(draggingRow, row.nextSibling);
+                } else {
+                    grid.insertBefore(draggingRow, row);
+                }
+
+                persistOrder();
+            });
+
             row.addEventListener('click', async (e) => {
                 const targetId = row.getAttribute('data-target');
                 const targetEl = document.getElementById(targetId);
@@ -2295,7 +2422,7 @@ const htmlContent = `
 </html>
 `;
 
-figma.showUI(htmlContent, { width: 280, height: 420 });
+figma.showUI(htmlContent, { width: 300, height: 460 });
 
 /**
  * Converts Figma's 0-1 RGB values to standard HEX format
@@ -2517,6 +2644,8 @@ async function checkOnboarding() {
     }
   } catch (e) {
     console.error("Storage error:", e);
+    // If storage fails, still show onboarding
+    figma.ui.postMessage({ type: "show-onboarding" });
   }
 }
 
@@ -2540,6 +2669,15 @@ function updateUI() {
 figma.ui.onmessage = async (msg) => {
   if (msg.type === "complete-onboarding") {
     await figma.clientStorage.setAsync("hasOnboarded", true);
+  }
+
+  if (msg.type === "get-format-order") {
+    const order = await figma.clientStorage.getAsync("formatOrder");
+    figma.ui.postMessage({ type: "set-format-order", order });
+  }
+
+  if (msg.type === "save-format-order") {
+    await figma.clientStorage.setAsync("formatOrder", msg.order);
   }
 };
 

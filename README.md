@@ -6,7 +6,7 @@
 [![Figma Plugin](https://img.shields.io/badge/Figma-Plugin-blueviolet?logo=figma)](https://www.figma.com/community/plugin/1605725747312426245/color-catcher)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=white)](https://vercel.com)
-[![Version](https://img.shields.io/badge/Version-1.1.0-green)](https://github.com/iziuqo/color-catcher)
+[![Version](https://img.shields.io/badge/Version-1.2.0-green)](https://github.com/iziuqo/color-catcher)
 [![Live](https://img.shields.io/badge/Live-✅%20Deployed-brightgreen)](https://color-catcher-blush.vercel.app)
 
 ---
@@ -17,9 +17,11 @@ Color Catcher is a **sleek, modern Figma plugin** that instantly extracts color 
 
 ### Features
 
-- 🎯 **Instant Color Extraction** – Select any layer, get HEX, RGB, HSL, and CSS values
+- 🎯 **Instant Color Extraction** – Select any layer, get HEX, RGB, HSL, CSS, and OKLCH values
 - 🏷️ **Smart Color Naming** – Automatically identifies color names from a database of 1,566 named colors
 - 📋 **One-Click Copy** – Click any format or color name to copy to clipboard
+- ↕️ **Drag to Reorder Formats** – Reorder the format list by dragging rows (persists across sessions)
+- ↩️ **Reset Order** – A tiny reset control appears after you customize the order
 - 🌟 **Beautiful UI** – Shadcn-inspired design with smooth animations and micro-interactions
 - 👋 **Smart Onboarding** – First-time users get a quick intro (shows once)
 - 💬 **Built-in Feedback** – Send suggestions directly from the plugin
@@ -77,7 +79,7 @@ color-catcher/
 ### How It Works
 
 1. **`code.ts`** – Runs in Figma's sandbox. Listens for selection changes and extracts color data.
-2. **`ui.html`** – The visual interface. Displays colors, handles user interactions, and manages UI state.
+2. **UI** – The visual interface is embedded inside `code.ts` via `figma.showUI(htmlContent, ...)`.
 3. **`ntc-data.txt`** – Contains the NTC (Name That Color) database with 1,566 pre-defined color names.
 4. **`api/submit.ts`** – A serverless function on Vercel that proxies feedback to Formspree.
 
@@ -145,6 +147,13 @@ The biggest enhancement is the intelligent color naming system powered by the NT
 - **📱 Responsive Design**: Better adaptation to different Figma window sizes
 - **🎨 Micro-interactions**: Smooth transitions and transform effects on interactive elements
 - **💫 Toast Notifications**: User-friendly feedback for copy actions
+
+### OKLCH Support + Format Ordering (v1.2+)
+
+- **🌈 OKLCH Output**: Adds `oklch(L C H)` format (perceptually uniform color space)
+- **↕️ Drag & Drop Reordering**: Designers can reorder the format list by dragging rows
+- **💾 Persistent Preferences**: The chosen order is saved to `figma.clientStorage`
+- **↩️ One-Click Reset**: A small reset control appears when your order differs from the default
 
 ### Technical Improvements
 
@@ -309,7 +318,7 @@ This entire plugin was **vibe-coded in under an hour** as a demonstration of rap
 
 ---
 
-## � Deployment Status
+## 🚀 Deployment Status
 
 ### Production Deployment
 - **✅ Status**: Live and deployed
@@ -324,7 +333,7 @@ This entire plugin was **vibe-coded in under an hour** as a demonstration of rap
 
 ---
 
-## �� Contact
+## 📬 Contact
 
 - **Issues**: [GitHub Issues](https://github.com/iziuqo/color-catcher/issues)
 - **Feedback**: Use the in-plugin feedback button
