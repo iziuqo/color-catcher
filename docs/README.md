@@ -4,19 +4,19 @@ This folder contains documentation and release collateral for the Color Catcher 
 
 ## Figma Community
 
-- `figma-community.md` — Single file with long/short/bullets copy (copy/paste)
+1. figma-community.md
 
 ## GitHub
 
-- `github.md` — Copy/paste repo description + topics/tags for GitHub settings
+1. github.md
 
 ## Release notes
 
-- `release-notes.md` — Single file organized by **Figma Community version** (copy/paste)
+1. release-notes.md
 
 ## Versioning
 
 We use **Figma Community versioning** going forward:
 
-- Current published version: **v4**
-- Next version to implement: **v5**
+1. Current published version: v4
+2. Next version to implement: v5
