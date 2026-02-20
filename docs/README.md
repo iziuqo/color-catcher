@@ -8,6 +8,10 @@ This folder contains documentation and release collateral for the Color Catcher 
 - `figma-community/short.md` — Short description
 - `figma-community/bullets.md` — Bullet-style description
 
+## GitHub
+
+- `github.md` — Copy/paste repo description + topics/tags for GitHub settings
+
 ## Release notes
 
 Release notes are organized by **Figma Community version**:
