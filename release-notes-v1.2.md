@@ -39,6 +39,7 @@ Updated interface to accommodate the new OKLCH format while maintaining polish:
 - ✅ **HSL**: Hue, Saturation, Lightness
 - ✅ **CSS**: CSS rgb() function format
 - ✅ **OKLCH**: Lightness, Chroma, Hue (NEW!)
+- ✅ **CMYK**: Cyan, Magenta, Yellow, Key (Black) percentages
 
 ### User Experience:
 - Updated onboarding to mention OKLCH support

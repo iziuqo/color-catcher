@@ -17,7 +17,7 @@ Color Catcher is a **sleek, modern Figma plugin** that instantly extracts color 
 
 ### Features
 
-- 🎯 **Instant Color Extraction** – Select any layer, get HEX, RGB, HSL, CSS, and OKLCH values
+- 🎯 **Instant Color Extraction** – Select any layer, get HEX, RGB, HSL, CSS, OKLCH, and CMYK values
 - 🏷️ **Smart Color Naming** – Automatically identifies color names from a database of 1,566 named colors
 - 📋 **One-Click Copy** – Click any format or color name to copy to clipboard
 - ↕️ **Drag to Reorder Formats** – Reorder the format list by dragging rows (persists across sessions)
@@ -151,6 +151,7 @@ The biggest enhancement is the intelligent color naming system powered by the NT
 ### OKLCH Support + Format Ordering (v1.2+)
 
 - **🌈 OKLCH Output**: Adds `oklch(L C H)` format (perceptually uniform color space)
+- **🖨️ CMYK Output**: Adds CMYK percentages for print workflows
 - **↕️ Drag & Drop Reordering**: Designers can reorder the format list by dragging rows
 - **💾 Persistent Preferences**: The chosen order is saved to `figma.clientStorage`
 - **↩️ One-Click Reset**: A small reset control appears when your order differs from the default

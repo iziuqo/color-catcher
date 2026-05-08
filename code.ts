@@ -2119,6 +2119,11 @@ const htmlContent = `
                     <span id="val-oklch" class="color-value">oklch(1.00 0.00 0.00)</span>
                     <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
                 </div>
+                <div class="color-row" role="button" data-format="cmyk" data-target="val-cmyk" draggable="true">
+                    <span class="color-label">CMYK</span>
+                    <span id="val-cmyk" class="color-value">0%, 0%, 0%, 0%</span>
+                    <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </div>
             </div>
         </div>
 
@@ -2184,6 +2189,7 @@ const htmlContent = `
             valHsl: document.getElementById('val-hsl'),
             valCss: document.getElementById('val-css'),
             valOklch: document.getElementById('val-oklch'),
+            valCmyk: document.getElementById('val-cmyk'),
             toast: document.getElementById('toast'),
             copyArea: document.getElementById('copy-area'),
             btnStart: document.getElementById('btn-start'),
@@ -2196,7 +2202,7 @@ const htmlContent = `
             btnSubmit: document.getElementById('btn-submit')
         };
 
-        const DEFAULT_FORMAT_ORDER = ['hex', 'rgb', 'hsl', 'css', 'oklch'];
+        const DEFAULT_FORMAT_ORDER = ['hex', 'rgb', 'hsl', 'css', 'oklch', 'cmyk'];
         let currentFormatOrder = [...DEFAULT_FORMAT_ORDER];
 
         function arraysEqual(a, b) {
@@ -2360,6 +2366,7 @@ const htmlContent = `
             els.valHsl.textContent = data.hsl;
             els.valCss.textContent = data.css;
             els.valOklch.textContent = data.oklch;
+            els.valCmyk.textContent = data.cmyk;
         }
 
         function showContent(hasData) {
@@ -2469,7 +2476,7 @@ const htmlContent = `
 </html>
 `;
 
-figma.showUI(htmlContent, { width: 300, height: 460 });
+figma.showUI(htmlContent, { width: 300, height: 500 });
 
 /**
  * Converts Figma's 0-1 RGB values to standard HEX format
@@ -2598,6 +2605,35 @@ function rgbToHsl(r: number, g: number, b: number): string {
 }
 
 /**
+ * Converts RGB (0-1) to CMYK percentages.
+ * @example rgbToCmyk(1, 0, 0) => "0%, 100%, 100%, 0%"
+ */
+function rgbToCmyk(r: number, g: number, b: number): string {
+  const r255 = Math.round(r * 255);
+  const g255 = Math.round(g * 255);
+  const b255 = Math.round(b * 255);
+
+  // Convert to 0..1
+  const rr = r255 / 255;
+  const gg = g255 / 255;
+  const bb = b255 / 255;
+
+  const k = 1 - Math.max(rr, gg, bb);
+  if (k >= 1) return "0%, 0%, 0%, 100%";
+
+  const c = (1 - rr - k) / (1 - k);
+  const m = (1 - gg - k) / (1 - k);
+  const y = (1 - bb - k) / (1 - k);
+
+  const C = Math.round(c * 100);
+  const M = Math.round(m * 100);
+  const Y = Math.round(y * 100);
+  const K = Math.round(k * 100);
+
+  return `${C}%, ${M}%, ${Y}%, ${K}%`;
+}
+
+/**
  * Converts RGB to OKLCH (perceptually uniform color space)
  * OKLCH provides better perceptual uniformity than HSL
  * @example rgbToOklch(1, 0, 0) => "oklch(0.63 0.22 29.23)" (red)
@@ -2652,6 +2688,7 @@ function processColor(r: number, g: number, b: number) {
     css: `rgb(${r255}, ${g255}, ${b255})`,
     hsl: rgbToHsl(r, g, b),
     oklch: rgbToOklch(r, g, b),
+    cmyk: rgbToCmyk(r, g, b),
     name: colorName.name,
     exact: colorName.exact
   };
