@@ -2492,30 +2492,15 @@ function rgbToHex(r: number, g: number, b: number): string {
 }
 
 /**
- * Finds the closest named color from the NTC database
- * Uses weighted Euclidean distance (RGB + HSL) for matching
- * @returns Object with name, hex of the closest color, and whether it's an exact match
+ * Calculates HSL components from RGB (0-1 range)
+ * Returns {h, s, l} in 0-1 range for internal calculations
+ * This is the shared implementation used by all HSL-related functions
  */
-function findClosestColorName(r: number, g: number, b: number): { name: string; hex: string; exact: boolean } {
-  const inputHex = rgbToHex(r, g, b).substring(1); // Remove # prefix
-  
-  // Check for exact match first
-  for (const [hex, name] of NTC_COLORS) {
-    if (hex.toUpperCase() === inputHex.toUpperCase()) {
-      return { name, hex: `#${hex}`, exact: true };
-    }
-  }
-  
-  // Convert input color to both RGB255 and HSL for comparison
-  const r255 = Math.round(r * 255);
-  const g255 = Math.round(g * 255);
-  const b255 = Math.round(b * 255);
-  
-  // Calculate input HSL values (0-1 range)
+function calculateHslComponents(r: number, g: number, b: number): { h: number; s: number; l: number } {
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   let h = 0, s = 0, l = (max + min) / 2;
-  
+
   if (max !== min) {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
@@ -2526,58 +2511,85 @@ function findClosestColorName(r: number, g: number, b: number): { name: string; 
     }
     h /= 6;
   }
-  
+
+  return { h, s, l };
+}
+
+/**
+ * Pre-built Map for O(1) exact color lookups
+ * Eliminates looping through 1566 colors for exact matches
+ */
+const NTC_COLOR_MAP = new Map<string, string>(NTC_COLORS.map(([hex, name]) => [hex.toUpperCase(), name]));
+
+/**
+ * Precomputed NTC color metadata for fast fuzzy matching
+ * Eliminates repeated parseInt and HSL calculations (1566 times per fuzzy match)
+ * Structure: [hex, name, r255, g255, b255, h, s, l]
+ */
+const NTC_PRECOMPUTED: [string, string, number, number, number, number, number, number][] = NTC_COLORS.map(([hex, name]) => {
+  // Parse hex to RGB255 once
+  const r255 = parseInt(hex.substring(0, 2), 16);
+  const g255 = parseInt(hex.substring(2, 4), 16);
+  const b255 = parseInt(hex.substring(4, 6), 16);
+
+  // Calculate HSL using shared helper (0-1 range)
+  const { h, s, l } = calculateHslComponents(r255 / 255, g255 / 255, b255 / 255);
+
+  return [hex, name, r255, g255, b255, h, s, l];
+});
+
+/**
+ * Finds the closest named color from the NTC database
+ * Uses O(1) Map lookup for exact matches, weighted Euclidean distance (RGB + HSL) for fuzzy matching
+ * Returns HSL values to avoid duplicate calculations in processColor
+ * @returns Object with name, hex, exact match status, and HSL values (0-1 range)
+ */
+function findClosestColorName(r: number, g: number, b: number): { name: string; hex: string; exact: boolean; h: number; s: number; l: number } {
+  const inputHex = rgbToHex(r, g, b).substring(1).toUpperCase(); // Remove # prefix, uppercase for consistent keys
+
+  // O(1) exact match lookup via Map
+  const exactName = NTC_COLOR_MAP.get(inputHex);
+
+  // Calculate input HSL values using shared helper (0-1 range)
+  const { h, s, l } = calculateHslComponents(r, g, b);
+
+  // Return early for exact matches with calculated HSL
+  if (exactName) {
+    return { name: exactName, hex: `#${inputHex}`, exact: true, h, s, l };
+  }
+
+  // Convert input color to RGB255 for comparison
+  const r255 = Math.round(r * 255);
+  const g255 = Math.round(g * 255);
+  const b255 = Math.round(b * 255);
+
   let closestDist = Infinity;
-  let closestColor = NTC_COLORS[0];
-  
-  // Find closest color using weighted distance
-  for (const [hex, name] of NTC_COLORS) {
-    // Parse hex to RGB
-    const candidateR = parseInt(hex.substring(0, 2), 16);
-    const candidateG = parseInt(hex.substring(2, 4), 16);
-    const candidateB = parseInt(hex.substring(4, 6), 16);
-    
-    // RGB distance (weighted)
-    const dr = r255 - candidateR;
-    const dg = g255 - candidateG;
-    const db = b255 - candidateB;
+  let closestColor = NTC_PRECOMPUTED[0];
+
+  // Find closest color using weighted distance with precomputed values
+  for (const [hex, name, cR255, cG255, cB255, cH, cS, cL] of NTC_PRECOMPUTED) {
+    // RGB distance (weighted) - use precomputed RGB255 values
+    const dr = r255 - cR255;
+    const dg = g255 - cG255;
+    const db = b255 - cB255;
     const rgbDist = Math.sqrt(dr * dr + dg * dg + db * db);
-    
-    // Calculate candidate HSL
-    const cR = candidateR / 255;
-    const cG = candidateG / 255;
-    const cB = candidateB / 255;
-    const cMax = Math.max(cR, cG, cB);
-    const cMin = Math.min(cR, cG, cB);
-    let cH = 0, cS = 0, cL = (cMax + cMin) / 2;
-    
-    if (cMax !== cMin) {
-      const cD = cMax - cMin;
-      cS = cL > 0.5 ? cD / (2 - cMax - cMin) : cD / (cMax + cMin);
-      switch (cMax) {
-        case cR: cH = (cG - cB) / cD + (cG < cB ? 6 : 0); break;
-        case cG: cH = (cB - cR) / cD + 2; break;
-        case cB: cH = (cR - cG) / cD + 4; break;
-      }
-      cH /= 6;
-    }
-    
-    // HSL distance (with hue wrap-around)
+
+    // HSL distance (with hue wrap-around) - use precomputed HSL values
     const dh = Math.min(Math.abs(h - cH), 1 - Math.abs(h - cH)) * 360;
     const ds = Math.abs(s - cS) * 100;
     const dl = Math.abs(l - cL) * 100;
     const hslDist = Math.sqrt(dh * dh + ds * ds + dl * dl);
-    
+
     // Combined weighted distance (RGB is more important)
     const totalDist = rgbDist * 2 + hslDist;
-    
+
     if (totalDist < closestDist) {
       closestDist = totalDist;
-      closestColor = [hex, name];
+      closestColor = [hex, name, cR255, cG255, cB255, cH, cS, cL];
     }
   }
-  
-  return { name: closestColor[1], hex: `#${closestColor[0]}`, exact: false };
+
+  return { name: closestColor[1], hex: `#${closestColor[0]}`, exact: false, h, s, l };
 }
 
 /**
@@ -2586,21 +2598,7 @@ function findClosestColorName(r: number, g: number, b: number): { name: string; 
  * @example rgbToHsl(1, 0, 0) => "hsl(0, 100%, 50%)" (red)
  */
 function rgbToHsl(r: number, g: number, b: number): string {
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  let h = 0, s = 0, l = (max + min) / 2;
-
-  if (max !== min) {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    
-    switch (max) {
-      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-      case g: h = ((b - r) / d + 2) / 6; break;
-      case b: h = ((r - g) / d + 4) / 6; break;
-    }
-  }
-
+  const { h, s, l } = calculateHslComponents(r, g, b);
   return `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
 }
 
@@ -2672,26 +2670,91 @@ function rgbToOklch(r: number, g: number, b: number): string {
 }
 
 /**
+ * Color data structure returned by processColor
+ */
+interface ColorData {
+  hex: string;
+  rgb: string;
+  css: string;
+  hsl: string;
+  oklch: string;
+  cmyk: string;
+  name: string;
+  exact: boolean;
+}
+
+/**
+ * Simple LRU cache for color conversion results
+ * Keyed by rounded RGB values (4 decimal places for stability)
+ * Max 100 entries to prevent unbounded growth
+ */
+const colorCache = new Map<string, ColorData>();
+const MAX_CACHE_SIZE = 100;
+
+function getCacheKey(r: number, g: number, b: number): string {
+  // Round to 4 decimal places for stable keys while preserving precision
+  return `${r.toFixed(4)},${g.toFixed(4)},${b.toFixed(4)}`;
+}
+
+/**
  * Processes a color into all formats we support
  * Takes Figma's 0-1 RGB and returns HEX, RGB, HSL, CSS, OKLCH formats, and color name
+ * Results are memoized for repeated colors
  */
-function processColor(r: number, g: number, b: number) {
+function processColor(r: number, g: number, b: number): ColorData {
+  const cacheKey = getCacheKey(r, g, b);
+  const cached = colorCache.get(cacheKey);
+  if (cached) {
+    // Move to end (most recently used) for LRU behavior
+    colorCache.delete(cacheKey);
+    colorCache.set(cacheKey, cached);
+    return cached;
+  }
+
   const hex = rgbToHex(r, g, b);
   const r255 = Math.round(r * 255);
   const g255 = Math.round(g * 255);
   const b255 = Math.round(b * 255);
   const colorName = findClosestColorName(r, g, b);
 
-  return {
+  const result = {
     hex: hex,
     rgb: `${r255}, ${g255}, ${b255}`,
     css: `rgb(${r255}, ${g255}, ${b255})`,
-    hsl: rgbToHsl(r, g, b),
+    // Use HSL values from findClosestColorName to avoid duplicate calculation
+    hsl: `hsl(${Math.round(colorName.h * 360)}, ${Math.round(colorName.s * 100)}%, ${Math.round(colorName.l * 100)}%)`,
     oklch: rgbToOklch(r, g, b),
     cmyk: rgbToCmyk(r, g, b),
     name: colorName.name,
     exact: colorName.exact
   };
+
+  // Evict oldest entry if at capacity
+  if (colorCache.size >= MAX_CACHE_SIZE) {
+    const firstKey = colorCache.keys().next().value;
+    if (firstKey !== undefined) {
+      colorCache.delete(firstKey);
+    }
+  }
+
+  colorCache.set(cacheKey, result);
+  return result;
+}
+
+/**
+ * Type guard to check if a node has a fills property that is an array
+ * Replaces unsafe type assertion `as Paint[]` with proper runtime checking
+ */
+function hasFills(node: SceneNode): node is SceneNode & { fills: Paint[] } {
+  return "fills" in node && Array.isArray((node as any).fills);
+}
+
+/**
+ * Type guard to check if a paint is a visible solid color
+ * Replaces unsafe type assertion `as SolidPaint` with proper runtime checking
+ */
+function isVisibleSolid(paint: Paint): paint is SolidPaint {
+  return paint.type === "SOLID" && paint.visible !== false;
 }
 
 /**
@@ -2700,12 +2763,9 @@ function processColor(r: number, g: number, b: number) {
  * @returns Color data object or null if no solid fill found
  */
 function findSolidFill(node: SceneNode) {
-  // Check if this node type supports fills (not all do!)
-  if ("fills" in node) {
-    const fills = node.fills as Paint[];
-    const solidFill = fills.find(
-      (fill) => fill.type === "SOLID" && fill.visible !== false
-    ) as SolidPaint;
+  // Use type guard instead of unsafe type assertion
+  if (hasFills(node)) {
+    const solidFill = node.fills.find(isVisibleSolid);
 
     if (solidFill) {
       const { r, g, b } = solidFill.color;
