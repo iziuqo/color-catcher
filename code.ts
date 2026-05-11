@@ -2828,20 +2828,22 @@ figma.ui.onmessage = async (msg) => {
 // Listen for selection changes and update UI in real-time
 figma.on("selectionchange", updateUI);
 
-// Listen for document changes (e.g., color changes) with debounce
-let documentChangeTimeout: number | undefined;
-figma.on("documentchange", () => {
-  // Debounce to avoid excessive updates during rapid changes
-  if (documentChangeTimeout) {
-    clearTimeout(documentChangeTimeout);
-  }
-  documentChangeTimeout = setTimeout(() => {
-    updateUI();
-  }, 50) as unknown as number;
-});
-
 // Initialize the plugin
 (async () => {
+  await figma.loadAllPagesAsync(); // Required for documentchange in incremental mode
+
+  // Listen for document changes (e.g., color changes) with debounce
+  let documentChangeTimeout: number | undefined;
+  figma.on("documentchange", () => {
+    // Debounce to avoid excessive updates during rapid changes
+    if (documentChangeTimeout) {
+      clearTimeout(documentChangeTimeout);
+    }
+    documentChangeTimeout = setTimeout(() => {
+      updateUI();
+    }, 50) as unknown as number;
+  });
+
   await checkOnboarding();  // Check if we should show onboarding
   updateUI();               // Show current selection (if any)
 })();
