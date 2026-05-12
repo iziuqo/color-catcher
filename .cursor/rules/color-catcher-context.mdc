@@ -1,0 +1,6 @@
+---
+description: Lightweight project-memory pointer for Color Catcher feature work
+alwaysApply: true
+---
+
+For Color Catcher work, use `CURSOR_CONTEXT.md` as the durable project memory before making substantial product, architecture, or code changes. Keep this rule short so Cursor does not spend tokens embedding the full context in every request; explicitly open `@CURSOR_CONTEXT.md` only when needed.
